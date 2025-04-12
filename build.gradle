@@ -24,11 +24,11 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	//implementation 'org.flywaydb:flyway-core'
+	//implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.postgresql:postgresql'
+	// runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
@@ -51,5 +51,5 @@ bootJar {
 
 bootRun {
 	systemProperties = System.properties
-	jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5050"]
+	//jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5050"]
 }
