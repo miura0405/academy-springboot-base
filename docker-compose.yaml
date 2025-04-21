@@ -1,24 +1,12 @@
+version: '3.8'
+
 services:
   app:
+    container_name: academy-springboot-base-app
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
-    working_dir: /app
     ports:
-      - 8080:8080
-      - 5050:5050
-    tty: true
-    volumes:
-      - ./:/app
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13.1
-    container_name: db
+      - "8080:8080"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "dev"
-    ports:
-      - "5432:5432"
+      - SPRING_PROFILES_ACTIVE=prod
