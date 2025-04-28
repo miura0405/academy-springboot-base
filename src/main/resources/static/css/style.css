@@ -63,9 +63,11 @@ body {
   margin: 0 auto;
 }
 
+
 /* ボタン共通 */
 .btn-login,
-.btn-register {
+.btn-register,
+.btn-logout {
   width: 268px;
   padding: 0.5rem 0;
   background-color: #1B5678;
@@ -73,7 +75,8 @@ body {
 }
 
 .btn-login:hover,
-.btn-register:hover {
+.btn-register:hover,  
+.btn-logout {
   background-color: #1e618b;
   color: white;
 }

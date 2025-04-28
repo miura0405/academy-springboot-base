@@ -25,7 +25,11 @@ public class SecurityConfig {
             .defaultSuccessUrl("/top", true)
             .permitAll()
         )
-        .logout(logout -> logout.permitAll());
+        .logout(logout -> logout
+    .logoutSuccessUrl("/login")
+    .permitAll()
+);
+
 
     return http.build();
 }
