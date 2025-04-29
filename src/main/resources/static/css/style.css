@@ -70,6 +70,7 @@ body {
   padding: 0.5rem 0;
   background-color: #1B5678;
   color: white;
+  border-radius: 4px;
 }
 
 .btn-login:hover,
