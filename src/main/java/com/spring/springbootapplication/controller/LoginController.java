@@ -15,7 +15,7 @@ public class LoginController {
         Model model
     ) {
         if (error != null) {
-            model.addAttribute("errorMessage", "メールアドレスまたはパスワードが間違っています。");
+            model.addAttribute("errorMessage", "メールアドレス、もしくはパスワードが間違っています");
         }
         if (logout != null) {
             model.addAttribute("logoutMessage", "ログアウトしました。");
