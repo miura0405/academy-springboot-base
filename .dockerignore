@@ -1,0 +1,33 @@
+# Java & Gradle
+*.class
+*.war
+*.ear
+/out
+.gradle
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IntelliJ
+.idea
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VSCode
+.vscode/
+
+# Git
+.git
+.gitignore
+
+# Other
+target
+
