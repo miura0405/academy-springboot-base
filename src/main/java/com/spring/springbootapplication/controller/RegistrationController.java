@@ -52,9 +52,9 @@ public class RegistrationController {
         }
     }
 
-    @GetMapping("/top")
-    public String topPage(Model model) {
-        model.addAttribute("message", "仮TOPページ");
-        return "topPage";
-    }
+    // @GetMapping("/top")
+    // public String topPage(Model model) {
+    //     model.addAttribute("message", "仮TOPページ");
+    //     return "topPage";
+    // }
 }

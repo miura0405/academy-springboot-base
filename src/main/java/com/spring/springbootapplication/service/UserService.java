@@ -17,7 +17,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional //ログイン重複チェック
+    @Transactional
     public void registerUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("メールアドレス '" + user.getEmail() + "' は既に登録されています。");
@@ -28,4 +28,9 @@ public class UserService {
 
         userRepository.save(user);
     }
-}
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("ユーザーが見つかりません: " + email));
+    }
+}    
