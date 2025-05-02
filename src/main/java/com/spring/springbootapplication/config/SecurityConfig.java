@@ -12,24 +12,29 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/register", "/css/**", "/top").permitAll()
-            .anyRequest().authenticated()
-        )
-        .formLogin(form -> form
-            .loginPage("/login")
-            .failureUrl("/login?error")
-            .usernameParameter("email")
-            .passwordParameter("password")
-            .defaultSuccessUrl("/top", true)
-            .permitAll()
-        )
-        .logout(logout -> logout.permitAll());
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/register", "/css/**").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .failureUrl("/login?error")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/top", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll())
+                .headers(headers -> headers
+                        .cacheControl(cache -> {})
+                );
+                        
 
-    return http.build();
-}
-
+        return http.build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
