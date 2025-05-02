@@ -11,40 +11,41 @@
 
     <div th:replace="fragments/logoutHeader :: logoutHeader"></div>
 
-    <main class="container my-5">
-        <div class="row align-items-center mb-5">
-            <!-- アバター -->
-            <div class="col-md-4 text-center">
-                <img th:if="${user.avatar != null}"
-                    th:src="@{/images/avatars/{img}(img=${user.avatar})}"
-                    alt="アバター画像"
-                    class="rounded-circle"
-                    style="width: 360px; height: 360px; object-fit: cover;">
-                <img th:unless="${user.avatar != null}"
-                    th:src="@{/images/default-avatar.png}"
-                    alt="デフォルト画像"
-                    class="rounded-circle"
-                    style="width: 360px; height: 360px; object-fit: cover;">
-                <p class="mt-2" th:text="${user.name}">ユーザー名</p>
-            </div>
-    
-            <!-- 自己紹介 -->
-            <div class="profile-content">
-                <h2 class="profile-title">自己紹介</h2>
-                <div class="profile-underline"></div>
-            
-                <p class="mt-3" th:text="${user.profile != null ? user.profile : '自己紹介文が未登録です。'}"></p>
-                <a th:href="@{/profile/edit}" class="btn btn-primary mt-2">自己紹介を編集する</a>
-            </div>
-            
-        </div>
+<main class="main-wrapper">
+    <div class="profile-wrapper">
+        <!-- アバター -->
+        <!-- アバター -->
+<div class="avatar-block text-center">
+    <div class="avatar-image-wrapper">
+        <img th:if="${user.avatar != null}"
+             th:src="@{/images/avatars/{img}(img=${user.avatar})}"
+             alt="アバター画像"
+             class="rounded-circle">
+        <img th:unless="${user.avatar != null}"
+             th:src="@{/images/default-avatar.png}"
+             alt="デフォルト画像"
+             class="rounded-circle">
+    </div>
+    <p class="mt-2" th:text="${user.name}">ユーザー名</p>
+</div>
 
-        <div class="text-center">
-            <h3 class="border-bottom pb-2 mb-4">学習チャート</h3>
-            <a th:href="@{/learning/edit}" class="btn btn-secondary">編集する</a>
-        </div>
 
-    </main>
+        <!-- 自己紹介 -->
+        <div class="profile-content">
+    <h2 class="profile-title">自己紹介</h2>
+    <div class="profile-underline"></div>
+    <p class="mt-3" th:text="${user.profile != null ? user.profile : '自己紹介文が未登録です。'}"></p>
+    <a th:href="@{/profile/edit}" class="btn btn-primary mt-3">自己紹介を編集する</a>
+</div>
+
+    </div>
+
+    <div class="text-center mt-5">
+        <h3 class="border-bottom pb-2 mb-4">学習チャート</h3>
+        <a th:href="@{/learning/edit}" class="btn btn-secondary">編集する</a>
+    </div>
+</main>
+
     
     
     <div th:replace="fragments/footer :: footer"></div>

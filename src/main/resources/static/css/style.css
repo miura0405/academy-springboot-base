@@ -2,7 +2,7 @@ body {
   background-color: white;
 }
 
-/* 入力 */
+/* 入力欄下線付き */
 .underline-input {
   border: none;
   border-bottom: 1px solid #ccc;
@@ -15,26 +15,21 @@ body {
   border-bottom: 2px solid #1B5678;
 }
 
-/* ヘッダー */
-.header {
-  height: 120px;
-  background-color: #1B5678;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px;
-}
-
+/* 共通ヘッダー */
+.header,
 .header-between {
   height: 120px;
   background-color: #1B5678;
   color: white;
   padding: 0 40px;
-
   display: flex;
-  justify-content: space-between; 
   align-items: center;
+}
+.header {
+  justify-content: center;
+}
+.header-between {
+  justify-content: space-between;
 }
 
 /* メイン全体 */
@@ -48,13 +43,12 @@ body {
 
 .main-wrapper {
   width: 960px;
+  margin: 0 auto;
   padding-top: 80px;
   padding-bottom: 80px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-
+/* タイトル */
 .title {
   position: absolute;
   top: 15%; 
@@ -66,12 +60,11 @@ body {
   text-align: center;
 }
 
-/* ログイン */
+/* ログイン用ボックス */
 .login-box {
   width: 480px;
   margin: 0 auto;
 }
-
 
 /* ボタン共通 */
 .btn-login,
@@ -95,19 +88,69 @@ body {
   color: white;
 }
 
+/* アバターと自己紹介を横並びにする全体枠 */
+.profile-wrapper {
+  width: 960px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* アバターエリア */
+.avatar-image-wrapper {
+  width: 360px;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.avatar-image-wrapper img {
+  width: 360px;
+  height: 360px;
+  object-fit: cover;
+}
+
+
+/* 自己紹介エリア */
 .profile-content {
   width: 520px;
   height: 256px;
-  padding-top: 52px;
-  margin-left: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 80px;
+  padding-top: 52px;   /* 上下52pxの余白 */
+  padding-bottom: 52px;
 }
 
-.profile-box {
-  width: 520px;
-  height: 256px;
-  margin-left: 80px; /* アバターとの左右間隔 */
+/* 自己紹介タイトル */
+.profile-title {
+  font-weight: 700;
+  font-size: 36px;
+  width: 144px;
+  height: 42px;
+  margin-bottom: 4px;
 }
 
+/* タイトル下の下線 */
+.profile-underline {
+  width: 240px;
+  height: 1px;
+  background-color: #ccc;
+  margin-bottom: 12px;
+  margin-left: 0; /* ← 左寄せ */
+}
+
+
+/* 編集ボタン位置調整 */
+.btn-edit {
+  margin-top: 16px;
+}
+
+/* フッター */
 .footer {
   background-color: #1B5678;
   width: 100%;
@@ -118,56 +161,6 @@ body {
   padding: 0 40px;
   margin-top: auto;
 }
-
 .footer small {
   color: white;
-}
-
-content-wrapper {
-  max-width: 960px;
-  margin: 80px auto;
-  padding: 0 240px;
-}
-
-.profile-section {
-  display: flex;
-  align-items: center;
-  gap: 80px;
-}
-
-.avatar-img {
-  width: 360px;
-  height: 360px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.profile-content {
-  width: 240px;
-  height: 58px;
-  margin-left: 0; /* 左詰めにするなら */
-  padding: 0;
-  position: relative;
-}
-
-.profile-title {
-  font-weight: 700;
-  font-size: 36px;
-  width: 144px;
-  height: 42px;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
-
-.profile-underline {
-  width: 240px;
-  height: 1px;
-  background-color: #ccc;
-  margin-top: 8px; /* タイトルとの余白調整 */
-}
-
-
-.btn-edit {
-  margin-top: 16px;
 }
