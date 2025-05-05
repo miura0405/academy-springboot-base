@@ -51,10 +51,4 @@ public class RegistrationController {
             return "redirect:/register";
         }
     }
-
-    // @GetMapping("/top")
-    // public String topPage(Model model) {
-    //     model.addAttribute("message", "仮TOPページ");
-    //     return "topPage";
-    // }
 }
