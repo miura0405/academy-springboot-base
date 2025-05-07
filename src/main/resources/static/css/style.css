@@ -208,6 +208,21 @@ body {
   display: block;
 }
 
+.edit-title {
+  font-size: 36px;
+  font-weight: 400;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.edit-form {
+  width: 480px;
+  margin-bottom: 100px;
+}
+
+
+
 /* フッター */
 .footer {
   background-color: #1B5678;
