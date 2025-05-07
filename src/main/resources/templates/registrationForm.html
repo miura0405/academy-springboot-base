@@ -13,10 +13,10 @@
         <a th:href="@{/login}" class="btn btn-light text-dark px-4 py-2 rounded">ログイン</a>
     </header>
 
-<main class="main-container d-flex justify-content-center align-items-start">
-    <h3 class="title">新規登録</h3>
-
-    <div class="p-5 login-box">
+    <main class="main-container d-flex flex-column align-items-center justify-content-start">
+        <h3 class="title">新規登録</h3>
+        
+        <div class="p-5 login-box">
         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
         <form th:action="@{/register}" method="post" th:object="${userForm}">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="mb-3 text-center">
-                <button type="submit" class="btn btn-login">登録する</button>
+                <button type="submit" class="btn-common">登録する</button>
             </div>
         </form>
     </div>
