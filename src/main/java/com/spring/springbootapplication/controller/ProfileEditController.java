@@ -37,19 +37,27 @@ public class ProfileEditController {
     public String updateProfile(@RequestParam("profile") String profile,
                                 @RequestParam("avatarFile") MultipartFile avatarFile,
                                 HttpSession session) throws IOException {
-
+    
         User user = (User) session.getAttribute("loggedInUser");
-
+    
         if (!avatarFile.isEmpty()) {
             String filename = avatarFile.getOriginalFilename();
             Path path = Paths.get("src/main/resources/static/images/avatars", filename);
+    
+            // 保存先のディレクトリが存在しない場合は作成
+            Files.createDirectories(path.getParent());
+    
             Files.write(path, avatarFile.getBytes());
             user.setAvatar(filename);
         }
-
+    
         user.setProfile(profile);
         userRepository.save(user);
-
+    
+        // 🔽 セッションの user を上書きして反映
+        session.setAttribute("loggedInUser", user);
+    
         return "redirect:/top";
     }
+    
 }
