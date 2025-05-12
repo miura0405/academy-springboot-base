@@ -1,0 +1,15 @@
+.login-box {
+  width: 480px;
+  margin: 0 auto;
+}
+
+.btn-login {
+  width: 268px;
+}
+
+.btn-link-to-register {
+  width: 268px;
+  line-height: 38px;
+  display: inline-block; 
+  text-align: center;
+}

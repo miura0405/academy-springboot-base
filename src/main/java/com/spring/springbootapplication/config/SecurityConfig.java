@@ -38,13 +38,11 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessHandler(logoutSuccessHandler) // ← ここを変更
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             );
 
-        return http.build();
-    }
         return http.build();
     }
 

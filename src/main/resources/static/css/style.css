@@ -55,158 +55,21 @@ body {
   margin-bottom: 40px;
 }
 
-/* ログイン/登録フォームのボックス */
-.login-box {
-  width: 480px;
-  margin: 0 auto;
-}
 
 /* ボタン共通 */
 .btn-common {
-  width: 268px;
   padding: 0.5rem 0;
+  height: 53px;
   background-color: #1B5678;
   color: white;
   border-radius: 4px;
   text-align: center;
 }
+
 .btn-common:hover {
   background-color: #1e618b;
   color: white;
 }
-
-/* プロフィール関連 */
-.profile-wrapper {
-  width: 960px;
-  height: 360px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin: 0 auto;
-}
-
-.avatar-block {
-  width: 360px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.avatar-image-wrapper {
-  width: 360px;
-  height: 360px;
-  overflow: hidden;
-}
-.avatar-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.user-name {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 20px;
-  color: #000000;
-  width: 184px;
-  height: 57px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 370px;
-  left: 86px;
-}
-
-.profile-content {
-  width: 520px;
-  height: 256px;
-  margin-left: 80px;
-  padding-top: 52px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.profile-title-wrapper {
-  width: 240px;
-  height: 58px;
-  display: flex;
-  align-items: flex-start;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 16px;
-}
-
-.profile-title {
-  font-weight: 700;
-  font-size: 36px;
-  width: 144px;
-  height: 42px;
-  margin: 0;
-}
-
-.profile-description {
-  font-size: 18px;
-  margin: 32px 0;
-  flex-grow: 1;
-}
-
-.profile-button-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
-/* 学習チャート */
-.learning-chart-section {
-  width: 400px;
-  margin: 40px auto;
-  padding: 20px 0 24px;
-  text-align: center;
-}
-
-.learning-chart-title {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.75);
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 16px;
-  margin: 53px auto 40px;
-}
-
-.learning-chart-button {
-  width: 152px;
-  height: 53px;
-  line-height: 53px;
-  font-size: 16px;
-  background-color: #1B5678;
-  color: white;
-  border-radius: 4px;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
-  display: block;
-}
-
-.edit-title {
-  font-size: 36px;
-  font-weight: 400;
-  margin-top: 80px;
-  margin-bottom: 40px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.edit-form {
-  width: 480px;
-  margin-bottom: 100px;
-}
-
-
 
 /* フッター */
 .footer {
