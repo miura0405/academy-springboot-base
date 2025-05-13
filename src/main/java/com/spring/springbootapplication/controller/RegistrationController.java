@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 @Controller
 public class RegistrationController {
@@ -31,7 +37,9 @@ public class RegistrationController {
     public String registerUser(
         @Valid @ModelAttribute("userForm") UserRegistrationForm form,
         BindingResult bindingResult,
-        RedirectAttributes redirectAttributes
+        RedirectAttributes redirectAttributes,
+        HttpServletRequest request,
+        HttpSession session
     ) {
         if (bindingResult.hasErrors()) {
             return "registrationForm";
@@ -44,8 +52,19 @@ public class RegistrationController {
 
         try {
             userService.registerUser(user);
-            redirectAttributes.addFlashAttribute("registrationSuccess", true);
+
+            UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+            UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+            session.setAttribute(
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                SecurityContextHolder.getContext()
+            );
+
             return "redirect:/top";
+
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/register";

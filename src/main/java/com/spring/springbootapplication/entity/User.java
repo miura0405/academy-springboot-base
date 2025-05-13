@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.OffsetDateTime;
+
+import com.spring.springbootapplication.validation.ProfileEditGroup;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
@@ -29,9 +32,10 @@ public class User {
     private String email;
 
     @Column(columnDefinition = "TEXT")
-    @Size(min = 50, max = 200, message = "自己紹介は50文字以上200文字以下で入力してください")
-    @NotBlank(message = "自己紹介は50文字以上200文字以下で入力してください")
+    @Size(min = 50, max = 200, message = "自己紹介は50文字以上200文字以下で入力してください", groups = ProfileEditGroup.class)
+    @NotBlank(message = "自己紹介は50文字以上200文字以下で入力してください", groups = ProfileEditGroup.class)
     private String profile;
+
 
     @Column(length = 255)
     private String avatar;
