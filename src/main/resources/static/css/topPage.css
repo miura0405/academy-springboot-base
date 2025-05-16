@@ -82,6 +82,8 @@
   font-size: 18px;
   margin: 32px 0;
   flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .profile-button-wrapper {

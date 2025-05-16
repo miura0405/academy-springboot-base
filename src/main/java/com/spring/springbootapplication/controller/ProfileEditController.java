@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,11 +41,20 @@ public class ProfileEditController {
     }
 
     @PostMapping("/profile/update")
-    public String updateProfile(@Valid EditProfileForm form,
+    public String updateProfile(
+            @ModelAttribute("editProfileForm") @Valid EditProfileForm form,
             BindingResult bindingResult,
-            @RequestParam("avatarFile") MultipartFile avatarFile,
             HttpSession session,
             Model model) throws IOException {
+
+        MultipartFile avatarFile = form.getAvatarFile();
+
+        if (!avatarFile.isEmpty()) {
+            String contentType = avatarFile.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                bindingResult.rejectValue("avatarFile", "invalid.image", "画像ファイルを選択してください");
+            }
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", session.getAttribute("loggedInUser"));
@@ -55,16 +65,28 @@ public class ProfileEditController {
         user.setProfile(form.getProfile());
 
         if (!avatarFile.isEmpty()) {
-            String filename = avatarFile.getOriginalFilename();
-            Path path = Paths.get("src/main/resources/static/images/avatars", filename);
+            String originalFilename = avatarFile.getOriginalFilename();
+        
+            String extension = "";
+        
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+        
+            String newFilename = UUID.randomUUID().toString() + extension;
+        
+            Path path = Paths.get("uploads/avatars", newFilename);
             Files.createDirectories(path.getParent());
             Files.write(path, avatarFile.getBytes());
-            user.setAvatar(filename);
+        
+            user.setAvatar(newFilename);
         }
+        
+        
 
         userRepository.save(user);
         session.setAttribute("loggedInUser", user);
+
         return "redirect:/top";
     }
-
 }

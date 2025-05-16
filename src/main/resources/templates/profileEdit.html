@@ -17,42 +17,58 @@
       <h1 class="edit-title text-center">自己紹介を編集する</h1>
 
       <form
-  th:action="@{/profile/update}"
-  method="post"
-  enctype="multipart/form-data"
-  th:object="${editProfileForm}"
-  class="edit-form"
->
-
-      <div class="mb-3">
-        <div class="form-hint form-hint-profile">自己紹介文</div>
-        <textarea
-          th:field="*{profile}"
-          class="profile-textarea"
-          rows="5"
-        ></textarea>
-        <div class="form-hint form-hint-textarea">50文字以上、200文字以下で入力してください</div>
-        <div th:if="${#fields.hasErrors('profile')}"
-     th:text="${#fields.errors('profile')[0]}"
-     class="text-danger mt-1">
-</div>
-
-      </div>
-      
+        th:action="@{/profile/update}"
+        method="post"
+        enctype="multipart/form-data"
+        th:object="${editProfileForm}"
+        class="edit-form"
+      >
+        <div class="mb-3">
+          <div class="form-hint form-hint-profile">自己紹介文</div>
+          <textarea
+            th:field="*{profile}"
+            class="profile-textarea"
+            rows="5"
+          ></textarea>
+          <div class="form-hint form-hint-textarea">
+            50文字以上、200文字以下で入力してください
+          </div>
+          <div
+            th:if="${#fields.hasErrors('profile')}"
+            th:text="${#fields.errors('profile')[0]}"
+            class="text-danger mt-1"
+          ></div>
+        </div>
 
         <div class="mb-3">
           <div class="form-hint form-hint-avatar">アバター画像</div>
 
           <div class="custom-file-upload-wrapper d-flex align-items-center">
-            <label for="avatarFile" class="custom-file-upload">画像ファイルを添付する</label>
-            <input type="file" id="avatarFile" name="avatarFile" class="d-none" />
+            <label for="avatarFile" class="custom-file-upload"
+              >画像ファイルを添付する</label
+            >
+            <input
+              type="file"
+              id="avatarFile"
+              th:field="*{avatarFile}"
+              class="d-none"
+              accept="image/*"
+            />
             <span id="fileNameDisplay" class="file-name ms-3"></span>
-          </div>     
+            <div
+              th:if="${#fields.hasErrors('avatarFile')}"
+              th:text="${#fields.errors('avatarFile')[0]}"
+              class="text-danger mt-1"
+            ></div>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-common btn-confirm mx-auto d-block">
+        <button
+          type="submit"
+          class="btn btn-common btn-confirm mx-auto d-block"
+        >
           自己紹介を確定する
-        </button>        
+        </button>
       </form>
     </main>
 

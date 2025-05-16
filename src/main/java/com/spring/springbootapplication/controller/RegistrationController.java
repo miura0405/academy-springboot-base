@@ -3,7 +3,15 @@ package com.spring.springbootapplication.controller;
 import com.spring.springbootapplication.dto.UserRegistrationForm;
 import com.spring.springbootapplication.entity.User;
 import com.spring.springbootapplication.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,21 +19,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 @Controller
+@RequiredArgsConstructor
 public class RegistrationController {
 
     private final UserService userService;
-
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
-    }
+    private final AuthenticationManager authenticationManager; // ★ 追加
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -34,40 +34,43 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(
+public String registerUser(
         @Valid @ModelAttribute("userForm") UserRegistrationForm form,
         BindingResult bindingResult,
         RedirectAttributes redirectAttributes,
         HttpServletRequest request,
-        HttpSession session
-    ) {
-        if (bindingResult.hasErrors()) {
-            return "registrationForm";
-        }
+        HttpSession session) {
 
-        User user = new User();
-        user.setName(form.getName());
-        user.setEmail(form.getEmail());
-        user.setPassword(form.getPassword());
+    if (bindingResult.hasErrors()) {
+        return "registrationForm";
+    }
 
-        try {
-            userService.registerUser(user);
+    User user = new User();
+    user.setName(form.getName());
+    user.setEmail(form.getEmail());
+    user.setPassword(form.getPassword());
 
-            UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
-            UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    try {
+        userService.registerUser(user);
 
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-            session.setAttribute(
+        UsernamePasswordAuthenticationToken authRequest =
+                new UsernamePasswordAuthenticationToken(user.getEmail(), form.getPassword());
+
+        Authentication authResult = authenticationManager.authenticate(authRequest);
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+
+        session.setAttribute(
                 HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext()
-            );
+        );
 
-            return "redirect:/top";
+        session.setAttribute("loggedInUser", user);
 
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/register";
-        }
+        return "redirect:/top";
+
+    } catch (IllegalArgumentException e) {
+        redirectAttributes.addFlashAttribute("error", e.getMessage());
+        return "redirect:/register";
     }
+}
 }
