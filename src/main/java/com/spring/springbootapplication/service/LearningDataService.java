@@ -33,6 +33,6 @@ public class LearningDataService {
     }
 
     public void save(LearningData data) {
-      learningDataRepository.save(data);
-  }
+        learningDataRepository.save(data);
+    }
 }

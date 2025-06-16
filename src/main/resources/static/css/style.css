@@ -1,6 +1,14 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
 
 
 .underline-input {
@@ -76,6 +84,7 @@ body {
   color: white;
 }
 
+<<<<<<< Updated upstream
 /* プロフィール関連 */
 .profile-wrapper {
   width: 960px;
@@ -195,6 +204,9 @@ body {
 }
 
 /* フッター */
+=======
+/* フッター */  
+>>>>>>> Stashed changes
 .footer {
   background-color: #1B5678;
   width: 100%;
