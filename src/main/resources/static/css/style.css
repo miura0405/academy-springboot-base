@@ -9,8 +9,6 @@ body {
   flex-direction: column;
 }
 
-
-
 .underline-input {
   border: none;
   border-bottom: 1px solid #ccc;
@@ -84,8 +82,6 @@ body {
   color: white;
 }
 
-<<<<<<< Updated upstream
-/* プロフィール関連 */
 .profile-wrapper {
   width: 960px;
   height: 360px;
@@ -203,10 +199,6 @@ body {
   display: block;
 }
 
-/* フッター */
-=======
-/* フッター */  
->>>>>>> Stashed changes
 .footer {
   background-color: #1B5678;
   width: 100%;
