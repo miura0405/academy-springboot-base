@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 
-
 @Controller
 public class TopPageController {
 
@@ -25,14 +24,14 @@ public class TopPageController {
 
     @GetMapping("/top")
     public String showTopPage(Model model, Principal principal) {
-        // ログイン中のユーザーのemail取得（Spring Security）
+        if (principal == null) {
+            return "redirect:/login";
+        }
         String email = principal.getName();
-
-        // emailからユーザー情報を取得
         User user = userService.findByEmail(email);
-
-        // モデルに渡す
         model.addAttribute("user", user);
         return "topPage";
     }
 }
+
+
