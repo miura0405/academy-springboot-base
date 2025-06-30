@@ -33,6 +33,11 @@ public class LearningDataService {
     }
 
     public void save(LearningData data) {
-      learningDataRepository.save(data);
-  }
+        learningDataRepository.save(data);
+    }
+
+    public boolean existsByNameAndMonthAndUserId(String name, LocalDate month, Integer userId) {
+        return learningDataRepository.existsByUserIdAndLearningMonthAndLearningName(userId, month, name);
+    }
+    
 }

@@ -1,12 +1,17 @@
 package com.spring.springbootapplication.dto;
 
-import lombok.Data;
+import lombok.*;
+import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LearningDataDto {
-
   private Integer id;
   private String learningName;
-  private Integer learningTime;
-  
+    private Integer learningTime;
+    private Integer categoryId;
+    private LocalDate learningDate;
 }

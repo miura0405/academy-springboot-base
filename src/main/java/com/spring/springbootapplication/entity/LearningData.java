@@ -1,6 +1,7 @@
 package com.spring.springbootapplication.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,8 +25,9 @@ public class LearningData {
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
-    @Column(name = "learning_name", nullable = false)
+    @Column(name = "learning_name", nullable = false, length = 50)
     private String learningName;
+
 
     @Column(name = "learning_month", nullable = false)
     private LocalDate learningMonth;

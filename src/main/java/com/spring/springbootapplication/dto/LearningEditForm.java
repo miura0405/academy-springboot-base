@@ -1,26 +1,21 @@
 package com.spring.springbootapplication.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.YearMonth;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class LearningEditForm {
 
     private List<LearningDataDto> backendList;
     private List<LearningDataDto> frontendList;
     private List<LearningDataDto> infraList;
-
     private YearMonth targetMonth;
-
-    public LearningEditForm(List<LearningDataDto> backendList, List<LearningDataDto> frontendList, List<LearningDataDto> infraList, YearMonth month) {
-        this.backendList = backendList;
-        this.frontendList = frontendList;
-        this.infraList = infraList;
-        this.targetMonth = month;
-    }
 }
