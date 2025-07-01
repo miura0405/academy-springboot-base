@@ -44,8 +44,10 @@
                         <input type="hidden" th:field="*{backendList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{backendList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{backendList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{backendList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{backendList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"
@@ -82,8 +84,10 @@
                         <input type="hidden" th:field="*{frontendList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{frontendList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{frontendList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{frontendList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{frontendList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"
@@ -120,8 +124,10 @@
                         <input type="hidden" th:field="*{infraList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{infraList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{infraList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{infraList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{infraList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"

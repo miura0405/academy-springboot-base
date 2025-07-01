@@ -1,14 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+  function toHalfWidth(str) { // 全角を半角に変換
+    return str.replace(/[！-～]/g, function (ch) {
+      return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0);
+    }).replace(/　/g, ' ');
+  }
+
   const submitBtn = document.querySelector('#submitButton');
   const form = document.getElementById('skillForm');
 
+  const errorName = document.getElementById("error-learningName");
+  const errorTime = document.getElementById("error-learningTime");
+
   submitBtn.addEventListener('click', function () {
-    document.getElementById("error-learningName").textContent = "";
-    document.getElementById("error-learningTime").textContent = "";
+
+    errorName.textContent = "";
 
     const learningName = document.getElementById('learningName').value.trim();
-    const learningTime = document.getElementById('learningTime').value;
-    const categoryId = document.getElementById('categoryId').value;
+    const learningTimeInput = document.getElementById('learningTime').value.trim();
+    const learningTime = Number(toHalfWidth(learningTimeInput));
+
+    const categoryId = Number(document.getElementById('categoryId').value);
     const learningMonth = document.getElementById('learningMonth').value;
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -27,49 +39,46 @@ document.addEventListener('DOMContentLoaded', function () {
         learningMonth
       })
     })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(data => { throw data });
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (!data.categoryId || !data.learningMonth) {
-          alert("カテゴリまたは月の情報が取得できませんでした");
-          return;
-        }
+    .then(response => {
+      if (!response.ok) throw response;
+      return response.json();
+    })
+    .then(data => {
+      document.getElementById('itemCategory').textContent = data.categoryName;
+      document.getElementById('itemName').textContent = data.learningName;
+      document.getElementById('itemTime').textContent = data.learningTime + "分";
 
-        document.getElementById('itemCategory').textContent = data.categoryName;
-        document.getElementById('itemName').textContent = data.learningName;
-        document.getElementById('itemTime').textContent = data.learningTime + "分";
+      const modal = new bootstrap.Modal(document.getElementById('successModal'));
+      modal.show();
 
-        const modal = new bootstrap.Modal(document.getElementById('successModal'));
-        modal.show();
+      document.getElementById('backToEdit').onclick = function () {
+        window.location.href = `/learning/edit?month=${data.learningMonth.slice(0, 7)}`;
+      };
+    })
+    .catch(async error => {
+      errorName.textContent = "";
+      errorTime.textContent = "";
 
-        document.getElementById('backToEdit').onclick = function () {
-          window.location.href = `/learning/edit?month=${data.learningMonth.slice(0, 7)}`;
-        };
-      })
-      .catch(error => {
-        document.getElementById("error-learningName").textContent = "";
-        document.getElementById("error-learningTime").textContent = "";
+      let errorData;
+      try {
+        errorData = error instanceof Response ? await error.json() : error;
+      } catch (e) {
+        alert("登録に失敗しました。");
+        return;
+      }
 
-        let hasError = false;
+      if (errorData.learningName) {
+        errorName.textContent = errorData.learningName;
+      }
+      if (errorData.learningTime) {
+        errorTime.textContent = errorData.learningTime;
+      }
 
-        if (error.learningName) {
-          document.getElementById("error-learningName").textContent = error.learningName;
-          hasError = true;
-        }
-
-        if (error.learningTime) {
-          document.getElementById("error-learningTime").textContent = error.learningTime;
-          hasError = true;
-        }
-
-        if (!hasError) {
-          alert("登録に失敗しました。");
-        }
-      });
+      if (!errorData.learningName && !errorData.learningTime) {
+        alert("登録に失敗しました。");
+        console.error("予期しないエラー内容:", errorData);
+      }
+    });
   });
 
   const toggleButton = document.getElementById('toggleDropdown');
@@ -77,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const input = document.getElementById('learningTime');
 
   toggleButton.addEventListener('click', function (e) {
-    e.stopPropagation(); 
+    e.stopPropagation();
     dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
   });
 
@@ -93,4 +102,5 @@ document.addEventListener('DOMContentLoaded', function () {
       dropdownList.style.display = 'none';
     }
   });
+
 });

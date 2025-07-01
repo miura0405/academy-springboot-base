@@ -38,6 +38,7 @@ public class SkillNewController {
             );
             return ResponseEntity.badRequest().body(response);
         }
+        
     
         String email = principal.getName();
         Integer userId = userService.findByEmail(email).getId();

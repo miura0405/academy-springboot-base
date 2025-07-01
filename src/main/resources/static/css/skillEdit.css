@@ -172,9 +172,26 @@
   .cell.name {
     width: 240px;
     height: 74px;
-    padding: 16px 157px 16px 40px;
+    padding: 16px 16px 16px 40px;
+    box-sizing: border-box;
   }
-
+  
+  .cell.name > span {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-overflow: clip;
+    scrollbar-width: thin;
+  }
+  
+  .cell.name > span::-webkit-scrollbar {
+    height: 6px;
+  }
+  .cell.name > span::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  
   .cell.time {
     width: 240px;
     padding: 20px 16px 20px 26px;

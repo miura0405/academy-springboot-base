@@ -20,4 +20,4 @@ public class SkillNewForm {
 
     @NotNull(message = "月が選択されていません")
     private String learningMonth;
-}   
+}       
