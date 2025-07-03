@@ -18,8 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const learningName = document.getElementById('learningName').value.trim();
     const learningTimeInput = document.getElementById('learningTime').value.trim();
-    const learningTime = Number(toHalfWidth(learningTimeInput));
-
+    const learningTimeRaw = toHalfWidth(learningTimeInput);
+    
+    let learningTime;
+    if (learningTimeRaw === "") {
+      learningTime = null; // 空欄 → @NotNull で「必ず入力してください」
+    } else if (isNaN(Number(learningTimeRaw))) {
+      learningTime = -1;   // 無効文字列 → @Min(0) で「0以上で入力してください」
+    } else {
+      learningTime = Number(learningTimeRaw);
+    }
+        
     const categoryId = Number(document.getElementById('categoryId').value);
     const learningMonth = document.getElementById('learningMonth').value;
 
@@ -39,47 +48,42 @@ document.addEventListener('DOMContentLoaded', function () {
         learningMonth
       })
     })
-    .then(response => {
-      if (!response.ok) throw response;
+    .then(async response => {
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw errorData;
+      }
       return response.json();
     })
     .then(data => {
       document.getElementById('itemCategory').textContent = data.categoryName;
       document.getElementById('itemName').textContent = data.learningName;
       document.getElementById('itemTime').textContent = data.learningTime + "分";
-
+    
       const modal = new bootstrap.Modal(document.getElementById('successModal'));
       modal.show();
-
+    
       document.getElementById('backToEdit').onclick = function () {
         window.location.href = `/learning/edit?month=${data.learningMonth.slice(0, 7)}`;
       };
     })
-    .catch(async error => {
+    .catch(errorData => {
       errorName.textContent = "";
       errorTime.textContent = "";
-
-      let errorData;
-      try {
-        errorData = error instanceof Response ? await error.json() : error;
-      } catch (e) {
-        alert("登録に失敗しました。");
-        return;
-      }
-
+    
       if (errorData.learningName) {
         errorName.textContent = errorData.learningName;
       }
       if (errorData.learningTime) {
         errorTime.textContent = errorData.learningTime;
       }
-
+    
       if (!errorData.learningName && !errorData.learningTime) {
         alert("登録に失敗しました。");
         console.error("予期しないエラー内容:", errorData);
       }
     });
-  });
+      });
 
   const toggleButton = document.getElementById('toggleDropdown');
   const dropdownList = document.getElementById('dropdownList');

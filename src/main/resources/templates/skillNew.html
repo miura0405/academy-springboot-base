@@ -33,7 +33,7 @@
         <div class="arrow-icon" id="toggleDropdown"></div>
       </div>
       <ul class="dropdown-list" id="dropdownList" style="display: none;">
-        <li th:each="m : ${#numbers.sequence(1, 1440)}"
+        <li th:each="m : ${#numbers.sequence(0, 1440)}"
             th:text="${m}" th:attr="data-value=${m}"></li>
       </ul>
       <div class="helper-text">分単位で入力してください</div>

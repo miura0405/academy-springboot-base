@@ -12,7 +12,7 @@ public class SkillNewForm {
     private String learningName;
 
     @NotNull(message = "学習時間は必ず入力してください")
-    @Min(value = 1, message = "学習時間は0以上で入力してください")
+    @Min(value = 0, message = "学習時間は0以上で入力してください")
     private Integer learningTime;
 
     @NotNull(message = "カテゴリIDが不正です")
