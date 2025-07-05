@@ -14,4 +14,5 @@ public interface LearningDataRepository extends JpaRepository<LearningData, Inte
 
     List<LearningData> findByUserIdAndLearningMonthAndCategoryId(Integer userId, LocalDate learningMonth, Integer categoryId);
 
+    boolean existsByUserIdAndLearningMonthAndLearningName(Integer userId, LocalDate learningMonth, String learningName);
 }

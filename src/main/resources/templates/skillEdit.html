@@ -27,10 +27,10 @@
             <input type="hidden" th:field="*{targetMonth}"/>
 
             <!-- バックエンド -->
-            <div class="card mb-4">
+            <div class="card mb-4" th:with="categoryId=1">
                 <div class="card-header">
                     <div class="category-title">バックエンド</div>
-                    <a href="/skill/new?category=1" class="btn-add">項目を追加する</a>
+                    <a th:href="@{/skill/new(category=1, month=${selectedMonth != null ? selectedMonth : targetMonth})}" class="btn-add">項目を追加する</a>
                 </div>
                 <div class="card-body scrollable-table-wrapper">
                     <div class="card-table-header">
@@ -44,8 +44,10 @@
                         <input type="hidden" th:field="*{backendList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{backendList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{backendList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{backendList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{backendList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"
@@ -65,10 +67,10 @@
             </div>
 
             <!-- フロントエンド -->
-            <div class="card mb-4">
+            <div class="card mb-4" th:with="categoryId=2">
                 <div class="card-header">
                     <div class="category-title">フロントエンド</div>
-                    <a href="/skill/new?category=2" class="btn-add">項目を追加する</a>
+                    <a th:href="@{/skill/new(category=2, month=${selectedMonth != null ? selectedMonth : targetMonth})}" class="btn-add">項目を追加する</a>
                 </div>
                 <div class="card-body scrollable-table-wrapper">
                     <div class="card-table-header">
@@ -82,8 +84,10 @@
                         <input type="hidden" th:field="*{frontendList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{frontendList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{frontendList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{frontendList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{frontendList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"
@@ -103,10 +107,10 @@
             </div>
 
             <!-- インフラ -->
-            <div class="card mb-4">
+            <div class="card mb-4" th:with="categoryId=3">
                 <div class="card-header">
                     <div class="category-title">インフラ</div>
-                    <a href="/skill/new?category=3" class="btn-add">項目を追加する</a>
+                    <a th:href="@{/skill/new(category=3, month=${selectedMonth != null ? selectedMonth : targetMonth})}" class="btn-add">項目を追加する</a>
                 </div>
                 <div class="card-body scrollable-table-wrapper">
                     <div class="card-table-header">
@@ -120,8 +124,10 @@
                         <input type="hidden" th:field="*{infraList[__${stat.index}__].id}"/>
                         <input type="hidden" th:field="*{infraList[__${stat.index}__].learningName}"/>
 
-                        <div class="cell name" th:text="*{infraList[__${stat.index}__].learningName}"></div>
-
+                        <div class="cell name">
+                            <span th:text="*{infraList[__${stat.index}__].learningName}"></span>
+                        </div>
+                        
                         <div class="cell time">
                             <select class="form-select" th:field="*{infraList[__${stat.index}__].learningTime}">
                                 <option th:each="m : ${#numbers.sequence(0, 1440)}"

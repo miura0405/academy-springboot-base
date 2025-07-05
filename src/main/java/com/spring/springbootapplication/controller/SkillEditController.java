@@ -1,7 +1,6 @@
 package com.spring.springbootapplication.controller;
 
 import com.spring.springbootapplication.dto.LearningDataDto;
-import com.spring.springbootapplication.dto.LearningDataForm;
 import com.spring.springbootapplication.dto.LearningEditForm;
 import com.spring.springbootapplication.entity.LearningData;
 import com.spring.springbootapplication.service.LearningDataService;
