@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="successModal">
+      <div class="modal fade" id="learningEditSuccessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content custom-modal-content">
+            <div class="modal-body text-center">
+              <p class="modal-message">
+                <span id="editItemName" class="bold-text"></span> の学習時間を保存しました！
+              </p>
+              <div class="modal-button-wrapper">
+              <button id="backToEditBtn" class="custom-button">編集ページに戻る</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

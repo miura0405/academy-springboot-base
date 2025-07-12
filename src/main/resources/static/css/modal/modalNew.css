@@ -1,0 +1,17 @@
+.modal-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  line-height: 28px;
+  margin-bottom: 40px;
+  white-space: pre-line;
+}
+
+.modal-message span {
+  margin-bottom: 10px;
+}
+
+.custom-button {
+margin-bottom: 50px;
+}

@@ -40,4 +40,10 @@ public class LearningDataService {
         return learningDataRepository.existsByUserIdAndLearningMonthAndLearningName(userId, month, name);
     }
     
+    public void updateLearningTime(Integer id, Integer learningTime) {
+        LearningData data = learningDataRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("対象の学習データが見つかりません"));
+        data.setLearningTime(learningTime);
+        learningDataRepository.save(data);
+    }
 }
