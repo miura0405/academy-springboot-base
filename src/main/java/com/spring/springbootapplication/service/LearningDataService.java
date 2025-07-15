@@ -15,13 +15,14 @@ public class LearningDataService {
 
     private final LearningDataRepository learningDataRepository;
 
-    public List<LearningData> getByUserIdAndMonth(Integer userId, LocalDate month) {
-        return learningDataRepository.findByUserIdAndLearningMonth(userId, month);
-    }
-
     public List<LearningData> getByUserIdMonthAndCategory(Integer userId, LocalDate month, Integer categoryId) {
-        return learningDataRepository.findByUserIdAndLearningMonthAndCategoryId(userId, month, categoryId);
+        return learningDataRepository.findByUserIdAndLearningMonthAndCategoryIdOrderByIdAsc(userId, month, categoryId);
     }
+    
+
+    // public List<LearningData> getByUserIdMonthAndCategory(Integer userId, LocalDate month, Integer categoryId) {
+    //     return learningDataRepository.findByUserIdAndLearningMonthAndCategoryId(userId, month, categoryId);
+    // }
 
     public void updateLearningData(List<LearningDataDto> dtoList) {
         for (LearningDataDto dto : dtoList) {
