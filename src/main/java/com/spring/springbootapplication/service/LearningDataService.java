@@ -15,13 +15,14 @@ public class LearningDataService {
 
     private final LearningDataRepository learningDataRepository;
 
-    public List<LearningData> getByUserIdAndMonth(Integer userId, LocalDate month) {
-        return learningDataRepository.findByUserIdAndLearningMonth(userId, month);
-    }
-
     public List<LearningData> getByUserIdMonthAndCategory(Integer userId, LocalDate month, Integer categoryId) {
-        return learningDataRepository.findByUserIdAndLearningMonthAndCategoryId(userId, month, categoryId);
+        return learningDataRepository.findByUserIdAndLearningMonthAndCategoryIdOrderByIdAsc(userId, month, categoryId);
     }
+    
+
+    // public List<LearningData> getByUserIdMonthAndCategory(Integer userId, LocalDate month, Integer categoryId) {
+    //     return learningDataRepository.findByUserIdAndLearningMonthAndCategoryId(userId, month, categoryId);
+    // }
 
     public void updateLearningData(List<LearningDataDto> dtoList) {
         for (LearningDataDto dto : dtoList) {
@@ -40,4 +41,10 @@ public class LearningDataService {
         return learningDataRepository.existsByUserIdAndLearningMonthAndLearningName(userId, month, name);
     }
     
+    public void updateLearningTime(Integer id, Integer learningTime) {
+        LearningData data = learningDataRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("対象の学習データが見つかりません"));
+        data.setLearningTime(learningTime);
+        learningDataRepository.save(data);
+    }
 }
