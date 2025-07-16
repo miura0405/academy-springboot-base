@@ -47,4 +47,9 @@ public class LearningDataService {
         data.setLearningTime(learningTime);
         learningDataRepository.save(data);
     }
+    
+    public void deleteLearningData(Integer id) {
+        learningDataRepository.deleteById(id);
+    }
+    
 }

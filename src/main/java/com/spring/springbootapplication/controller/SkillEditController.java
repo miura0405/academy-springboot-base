@@ -6,6 +6,8 @@ import com.spring.springbootapplication.dto.LearningTimeUpdateRequest;
 import com.spring.springbootapplication.entity.LearningData;
 import com.spring.springbootapplication.service.LearningDataService;
 import com.spring.springbootapplication.service.UserService;
+import com.spring.springbootapplication.dto.DeleteLearningRequest;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -87,5 +89,13 @@ public class SkillEditController {
         learningDataService.updateLearningTime(request.getId(), request.getLearningTime());
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/learning/delete")
+@ResponseBody
+public ResponseEntity<Void> deleteLearningData(@RequestBody DeleteLearningRequest request) {
+    learningDataService.deleteLearningData(request.getId());
+    return ResponseEntity.ok().build();
+}
+
 
 }
