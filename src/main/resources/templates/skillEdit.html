@@ -26,10 +26,10 @@
                 </option>
             </select>
         </form>
-
+    
         <form th:action="@{/learning/edit}" method="post" th:object="${form}">
-            <input type="hidden" th:field="*{targetMonth}"/>
-
+            <input type="hidden" th:field="*{targetMonth}" />
+    
             <!-- バックエンド -->
             <div class="card mb-4" th:with="categoryId=1">
                 <div class="card-header">
@@ -43,40 +43,37 @@
                         <div class="cell save-button"></div>
                         <div class="cell delete-button"></div>
                     </div>
-
+    
                     <div class="card-row" th:each="data, stat : *{backendList}">
-                        <input type="hidden" th:field="*{backendList[__${stat.index}__].id}"/>
-                        <input type="hidden" th:field="*{backendList[__${stat.index}__].learningName}"/>
-
+                        <input type="hidden" th:name="'backendList[' + ${stat.index} + '].id'" th:value="${data.id}" />
+                        <input type="hidden" th:name="'backendList[' + ${stat.index} + '].learningName'" th:value="${data.learningName}" />
+    
                         <div class="cell name">
-                            <span th:text="*{backendList[__${stat.index}__].learningName}"></span>
+                            <span th:text="${data.learningName}"></span>
                         </div>
-                        
+    
                         <div class="cell time">
-                            <input type="number" min="1" max="1440" value="1"
+                            <input type="number" min="1" max="1440"
                                 class="form-control learning-time-input"
-                                th:field="*{backendList[__${stat.index}__].learningTime}" />
+                                th:name="'backendList[' + ${stat.index} + '].learningTime'"
+                                th:value="${data.learningTime}" />
                             <div class="error-message text-danger" style="min-height: 1.5em;"></div>
                         </div>
-                        
-                                                    
-
+    
                         <div class="cell save-button">
                             <button class="btn-save" type="button">学習時間を保存する</button>
                         </div>
-                        
+    
                         <div class="cell delete-button">
                             <button class="btn-delete" type="button"
-                                    th:attr="data-id=*{backendList[__${stat.index}__].id},
-                                             data-name=*{backendList[__${stat.index}__].learningName}">
-                              削除する
+                                    th:attr="data-id=${data.id}, data-name=${data.learningName}">
+                                削除する
                             </button>
-                          </div>
-                          
+                        </div>
                     </div>
                 </div>
             </div>
-
+    
             <!-- フロントエンド -->
             <div class="card mb-4" th:with="categoryId=2">
                 <div class="card-header">
@@ -90,38 +87,37 @@
                         <div class="cell save-button"></div>
                         <div class="cell delete-button"></div>
                     </div>
-
+    
                     <div class="card-row" th:each="data, stat : *{frontendList}">
-                        <input type="hidden" th:field="*{frontendList[__${stat.index}__].id}"/>
-                        <input type="hidden" th:field="*{frontendList[__${stat.index}__].learningName}"/>
-
+                        <input type="hidden" th:name="'frontendList[' + ${stat.index} + '].id'" th:value="${data.id}" />
+                        <input type="hidden" th:name="'frontendList[' + ${stat.index} + '].learningName'" th:value="${data.learningName}" />
+    
                         <div class="cell name">
-                            <span th:text="*{frontendList[__${stat.index}__].learningName}"></span>
+                            <span th:text="${data.learningName}"></span>
                         </div>
-                        
+    
                         <div class="cell time">
                             <input type="number" min="1" max="1440"
                                 class="form-control learning-time-input"
-                                th:field="*{frontendList[__${stat.index}__].learningTime}" />
+                                th:name="'frontendList[' + ${stat.index} + '].learningTime'"
+                                th:value="${data.learningTime}" />
                             <div class="error-message text-danger" style="min-height: 1.5em;"></div>
                         </div>
-
+    
                         <div class="cell save-button">
                             <button class="btn-save" type="button">学習時間を保存する</button>
                         </div>
-
+    
                         <div class="cell delete-button">
                             <button class="btn-delete" type="button"
-                                    th:attr="data-id=*{backendList[__${stat.index}__].id},
-                                             data-name=*{backendList[__${stat.index}__].learningName}">
-                              削除する
+                                    th:attr="data-id=${data.id}, data-name=${data.learningName}">
+                                削除する
                             </button>
-                          </div>
-                          
+                        </div>
                     </div>
-                </div>  
+                </div>
             </div>
-
+    
             <!-- インフラ -->
             <div class="card mb-4" th:with="categoryId=3">
                 <div class="card-header">
@@ -135,39 +131,39 @@
                         <div class="cell save-button"></div>
                         <div class="cell delete-button"></div>
                     </div>
-
+    
                     <div class="card-row" th:each="data, stat : *{infraList}">
-                        <input type="hidden" th:field="*{infraList[__${stat.index}__].id}"/>
-                        <input type="hidden" th:field="*{infraList[__${stat.index}__].learningName}"/>
-
+                        <input type="hidden" th:name="'infraList[' + ${stat.index} + '].id'" th:value="${data.id}" />
+                        <input type="hidden" th:name="'infraList[' + ${stat.index} + '].learningName'" th:value="${data.learningName}" />
+    
                         <div class="cell name">
-                            <span th:text="*{infraList[__${stat.index}__].learningName}"></span>
+                            <span th:text="${data.learningName}"></span>
                         </div>
-                        
+    
                         <div class="cell time">
                             <input type="number" min="1" max="1440"
                                 class="form-control learning-time-input"
-                                th:field="*{infraList[__${stat.index}__].learningTime}" />
+                                th:name="'infraList[' + ${stat.index} + '].learningTime'"
+                                th:value="${data.learningTime}" />
                             <div class="error-message text-danger" style="min-height: 1.5em;"></div>
                         </div>
-
+    
                         <div class="cell save-button">
                             <button class="btn-save" type="button">学習時間を保存する</button>
                         </div>
-
+    
                         <div class="cell delete-button">
                             <button class="btn-delete" type="button"
-                                    th:attr="data-id=*{backendList[__${stat.index}__].id},
-                                             data-name=*{backendList[__${stat.index}__].learningName}">
-                              削除する
+                                    th:attr="data-id=${data.id}, data-name=${data.learningName}">
+                                削除する
                             </button>
-                          </div>
-                          
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
     </main>
+    
 
     <div th:replace="fragments/modal/modalLearningEditSuccess :: successModal"></div>
     <div th:replace="fragments/modal/modalDeleteSuccess :: deleteSuccessModal"></div>
