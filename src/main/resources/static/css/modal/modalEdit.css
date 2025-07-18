@@ -35,15 +35,13 @@
   justify-content: center;
   text-align: center;
   white-space: pre-line;
+  margin: 65.5px 0 40px 0; /* 上下左右のmarginを明示的に指定 */
 }
 
-.modal-message {
-  margin-top: 65.5px;
-  margin-bottom: 40px;
-  height: 56px;
-}
-
-.modal-button-wrapper {
+/* ボタンの位置調整 - 下部に65.5pxの余白を確保 */
+#backToEditFromDelete {
   margin-bottom: 65.5px;
+  height: 48px !important;
+  line-height: normal !important;
+  min-height: 48px !important;
 }
-
