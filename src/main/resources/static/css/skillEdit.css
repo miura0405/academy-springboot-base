@@ -232,11 +232,6 @@
     white-space: nowrap;
   }
 
-  .btn-save:hover {
-    background-color: #1B5678;
-    color: #ffffff;
-  }
-
   .cell.delete-button {
     width: 200px;
     display: flex;
@@ -260,12 +255,8 @@
     box-sizing: border-box;
     text-align: center;
     line-height: 16px;
-    transition: opacity 0.2s ease;
   }
 
-  .btn-delete:hover {
-    opacity: 0.9;
-  }
 
   .card-body.scrollable-table-wrapper::-webkit-scrollbar {
     display: none;

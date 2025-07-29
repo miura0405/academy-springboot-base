@@ -16,4 +16,10 @@ public class CategoryService {
                 .map(Category::getName)
                 .orElse("不明なカテゴリ");
     }
+
+    public Category findById(Integer id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found: id = " + id));
+    }
+    
 }

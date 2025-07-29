@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import com.spring.springbootapplication.entity.Category;
+import com.spring.springbootapplication.entity.User;
+
+
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -25,7 +29,7 @@ public class SkillNewController {
     private final LearningDataService learningDataService;
     private final UserService userService;
 
-    @PostMapping("/new")
+@PostMapping("/new")
 public ResponseEntity<?> saveSkillAjax(
         @Valid @RequestBody SkillNewForm form,
         Principal principal) {
@@ -47,12 +51,16 @@ public ResponseEntity<?> saveSkillAjax(
     }
 
     LearningData newData = new LearningData();
-    newData.setUserId(userId);
-    newData.setCategoryId(form.getCategoryId());
+    User user = userService.findById(userId);
+    newData.setUser(user);
+    
+    Category category = categoryService.findById(form.getCategoryId());
+    newData.setCategory(category);
+    
     newData.setLearningName(form.getLearningName());
     newData.setLearningTime(form.getLearningTime());
     newData.setLearningMonth(LocalDate.parse(form.getLearningMonth()));
-
+    
     learningDataService.save(newData);
 
     response.put("message", "success");

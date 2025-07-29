@@ -1,6 +1,6 @@
 <header th:fragment="logoutHeader" class="header-between">
-  <h2 class="m-0">My Portfolio</h2>
-  <form th:action="@{/logout}" method="post" class="d-inline">
+  <h2 class="headertitle"><a th:href="@{/top}">My Portfolio</a></h2>
+    <form th:action="@{/logout}" method="post" class="d-inline">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <button type="submit" class="auth-btn logout-btn">ログアウト</button>
   </form>

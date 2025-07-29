@@ -32,11 +32,11 @@
             </div>
 
             <div class="mb-5 text-center">
-                <button type="submit" class="btn btn-common btn-login">ログインする</button>
+                <button type="submit" class="btn-common btn-login">ログインする</button>
             </div>
 
             <div class="text-center">
-                <a th:href="@{/register}" class="btn btn-common btn-link-to-register">新規登録する</a>
+                <a th:href="@{/register}" class="btn-common btn-link-to-register">新規登録する</a>
             </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>
