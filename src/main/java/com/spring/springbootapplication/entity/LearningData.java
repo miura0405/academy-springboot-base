@@ -1,7 +1,6 @@
 package com.spring.springbootapplication.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,15 +18,20 @@ public class LearningData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
 
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    
+
 
     @Column(name = "learning_name", nullable = false, length = 50)
     private String learningName;
-
 
     @Column(name = "learning_month", nullable = false)
     private LocalDate learningMonth;
@@ -50,5 +54,10 @@ public class LearningData {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    // Optional: categoryIdを使いたい箇所のためのゲッター（参照専用）
+    public Integer getCategoryId() {
+        return category != null ? category.getId() : null;
     }
 }

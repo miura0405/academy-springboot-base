@@ -1,40 +1,32 @@
 package com.spring.springbootapplication.dto;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class ChartDataDto {
-
     private String categoryName;
+    private LocalDate learningMonth;
+    private Integer totalLearningTime;
 
-    private String yearMonth;
-
-    private int totalHours;
-
-    public ChartDataDto(String categoryName, String yearMonth, int totalHours) {
+    public ChartDataDto(String categoryName, LocalDate learningMonth, Long totalLearningTime) {
         this.categoryName = categoryName;
-        this.yearMonth = yearMonth;
-        this.totalHours = totalHours;
+        this.learningMonth = learningMonth;
+        this.totalLearningTime = totalLearningTime != null ? totalLearningTime.intValue() : 0;
     }
 
     public String getCategoryName() {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public Integer getTotalLearningTime() {
+        return totalLearningTime;
     }
 
-    public String getYearMonth() {
-        return yearMonth;
+    public LocalDate getLearningMonth() {
+        return learningMonth;
     }
 
-    public void setYearMonth(String yearMonth) {
-        this.yearMonth = yearMonth;
-    }
-
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public void setTotalHours(int totalHours) {
-        this.totalHours = totalHours;
+    public String getFormattedMonth() {
+        return learningMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
     }
 }

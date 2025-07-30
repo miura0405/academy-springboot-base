@@ -16,7 +16,8 @@ public class LearningDataService {
     private final LearningDataRepository learningDataRepository;
 
     public List<LearningData> getByUserIdMonthAndCategory(Integer userId, LocalDate month, Integer categoryId) {
-        return learningDataRepository.findByUserIdAndLearningMonthAndCategoryIdOrderByIdAsc(userId, month, categoryId);
+        return learningDataRepository.findByUserIdAndLearningMonthAndCategory_IdOrderByIdAsc(userId, month, categoryId);
+
     }
     
 

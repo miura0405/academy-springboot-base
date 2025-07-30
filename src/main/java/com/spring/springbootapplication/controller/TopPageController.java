@@ -22,16 +22,14 @@ public class TopPageController {
         this.userService = userService;
     }
 
-    @GetMapping("/top")
-    public String showTopPage(Model model, Principal principal) {
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
         String email = principal.getName();
         User user = userService.findByEmail(email);
         model.addAttribute("user", user);
-        return "topPage";
+        return "dashboard";
     }
 }
-
-
