@@ -9,6 +9,7 @@
     />
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/edit.css}" />
+    <link rel="stylesheet" th:href="@{/css/auth-buttons.css}">
   </head>
   <body class="d-flex flex-column min-vh-100">
     <div th:replace="fragments/logoutHeader :: logoutHeader"></div>
@@ -65,7 +66,7 @@
 
         <button
           type="submit"
-          class="btn btn-common btn-confirm mx-auto d-block"
+          class="btn-common btn-confirm mx-auto d-block"
         >
           自己紹介を確定する
         </button>

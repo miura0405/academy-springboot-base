@@ -113,8 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // モーダル「戻る」ボタンで編集画面に戻る（保存成功）
-  // モーダル「戻る」ボタンで編集画面に戻る（保存成功）
+    // モーダル「戻る」ボタンで編集画面に戻る（保存成功）
   const backToEditBtn = document.getElementById("backToEditBtn");
   if (backToEditBtn) {
     backToEditBtn.addEventListener("click", () => {
