@@ -2,7 +2,12 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <body>
     <div th:fragment="successModal">
-      <div class="modal fade" id="learningEditSuccessModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" 
+      id="learningEditSuccessModal" 
+      tabindex="-1" 
+      data-bs-backdrop="static" 
+      data-bs-keyboard="false" 
+      aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content custom-modal-content">
             <div class="modal-body text-center">
