@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class RegistrationController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager; // ★ 追加
+    private final AuthenticationManager authenticationManager;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {

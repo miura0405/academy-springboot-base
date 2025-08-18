@@ -72,7 +72,6 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 権限は "ROLE_USER" 固定
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
