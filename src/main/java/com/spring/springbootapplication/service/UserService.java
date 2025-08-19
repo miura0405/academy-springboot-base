@@ -9,7 +9,10 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -20,7 +23,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void registerUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("メールアドレス '" + user.getEmail() + "' は既に登録されています。");
+            log.warn("Duplicate email registration attempt: {}", user.getEmail()); 
+            throw new IllegalArgumentException("メールアドレスは既に登録されています。"); 
         }
 
         String hashedPassword = passwordEncoder.encode(user.getPassword());
