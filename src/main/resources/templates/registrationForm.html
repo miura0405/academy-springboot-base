@@ -24,7 +24,7 @@
         <form th:action="@{/register}" method="post" th:object="${userForm}">
             <div class="mb-5">
                 <label for="name" class="form-label">氏名</label>
-                <input type="text" id="name" th:field="*{name}" class="form-control underline-input" >
+                <input type="text" id="name" th:field="*{name}" class="form-control underline-input"    >
                 <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
 
