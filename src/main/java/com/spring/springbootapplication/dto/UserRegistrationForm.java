@@ -13,7 +13,7 @@ public class UserRegistrationForm {
     @NotBlank(message = "メールアドレスは必ず入力してください")
     @Size(max = 255, message = "メールアドレスは255文字以内で入力してください")
     @Pattern(
-        regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+        regexp = "^$|^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
         message = "メールアドレスが正しい形式ではありません"
     )
     private String email;
