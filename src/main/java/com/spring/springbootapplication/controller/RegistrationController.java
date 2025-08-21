@@ -3,10 +3,11 @@ package com.spring.springbootapplication.controller;
 import com.spring.springbootapplication.dto.UserRegistrationForm;
 import com.spring.springbootapplication.entity.User;
 import com.spring.springbootapplication.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,18 +29,23 @@ public class RegistrationController {
     private final AuthenticationManager authenticationManager;
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("userForm", new UserRegistrationForm());
-        return "registrationForm";
+    public String showRegistrationForm(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()
+            && !(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/top";
     }
 
+    model.addAttribute("userForm", new UserRegistrationForm());
+    return "registrationForm";
+}
+
+
     @PostMapping("/register")
-public String registerUser(
-        @Valid @ModelAttribute("userForm") UserRegistrationForm form,
-        BindingResult bindingResult,
-        RedirectAttributes redirectAttributes,
-        HttpServletRequest request,
-        HttpSession session) {
+    public String registerUser(
+            @Valid @ModelAttribute("userForm") UserRegistrationForm form,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            HttpSession session) {
 
     if (bindingResult.hasErrors()) {
         return "registrationForm";
