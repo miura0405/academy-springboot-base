@@ -1,72 +1,60 @@
 package com.spring.springbootapplication.config;
 
-import com.spring.springbootapplication.config.LoginSuccessHandler;
-import com.spring.springbootapplication.config.CustomLogoutSuccessHandler;
-import com.spring.springbootapplication.repository.UserRepository;
-import com.spring.springbootapplication.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 @Configuration
-@RequiredArgsConstructor
+@EnableWebSecurity
 public class SecurityConfig {
 
-    private final LoginSuccessHandler loginSuccessHandler;
-    private final CustomLogoutSuccessHandler logoutSuccessHandler;
-    private final UserRepository userRepository;
-    private final UserService userService;
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .securityContext(context ->
-                context.securityContextRepository(securityContextRepository())
-            )
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/register", "/css/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login?error")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .successHandler(loginSuccessHandler)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessHandler(logoutSuccessHandler)
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            );
-
-        return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-            HttpSecurity http,
-            PasswordEncoder passwordEncoder) throws Exception {
-        AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authBuilder.userDetailsService(userService)
-                .passwordEncoder(passwordEncoder);
-        return authBuilder.build();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
 
+    @Bean
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService,
+        PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
+    }
 
     @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new HttpSessionSecurityContextRepository();
-    }
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+        AuthenticationProvider authenticationProvider) throws Exception {
+    http
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/uploads/**", "/images/**", "/css/**", "/js/**", "/login", "/error").permitAll()
+            .anyRequest().authenticated()
+        )
+        .authenticationProvider(authenticationProvider)
+        .formLogin(form -> form
+            .loginPage("/login")
+            .loginProcessingUrl("/login")
+            .usernameParameter("email") 
+            .passwordParameter("password") 
+            .defaultSuccessUrl("/top", true)
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout")
+            .permitAll()
+        );
+    return http.build();
 }
-    
+
+}
