@@ -1,232 +1,246 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>TOPpage</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/topPage.css}">
-    <link rel="stylesheet" th:href="@{/css/auth-buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/chart.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/topPage.css}" />
+    <link rel="stylesheet" th:href="@{/css/auth-buttons.css}" />
+    <link rel="stylesheet" th:href="@{/css/chart.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="d-flex flex-column min-vh-100 bg-white">
-
+  <body class="d-flex flex-column min-vh-100 bg-white">
     <div th:replace="~{fragments/logoutHeader :: logoutHeader}"></div>
 
     <main class="main-wrapper">
-        <div class="profile-wrapper">
+      <div class="profile-wrapper">
         <!-- アバター -->
         <div class="avatar-block">
-            <div class="avatar-image-wrapper">
-            <img th:if="${user.avatar != null}"
-                th:src="@{/images/avatars/{img}(img=${user.avatar})}"
-                alt="アバター画像"
-                class="rounded-circle">
-            <img th:unless="${user.avatar != null}"
-                th:src="@{/images/default-avatar.png}"
-                alt="デフォルト画像"
-                class="rounded-circle">
-            </div>
+          <div class="avatar-image-wrapper">
+            <img
+              th:if="${user.avatar != null}"
+              th:src="@{/uploads/avatars/{img}(img=${user.avatar})}"
+              alt="アバター画像"
+              class="rounded-circle"
+            />
 
-            <p class="user-name" th:text="${user.name}">ユーザー名</p>
+            <img
+              th:unless="${user.avatar != null}"
+              th:src="@{/images/default-avatar.png}"
+              alt="デフォルト画像"
+              class="rounded-circle"
+            />
+          </div>
+
+          <p class="user-name" th:text="${user.name}">ユーザー名</p>
         </div>
-    
+
         <!-- 自己紹介 -->
         <div class="profile-content">
-            <div class="profile-title-wrapper">
+          <div class="profile-title-wrapper">
             <h2 class="profile-title">自己紹介</h2>
-            </div>
-            <p class="profile-description"
-            th:text="${user.profile != null ? user.profile : '自己紹介文が未登録です。'}"></p>
-            <div class="profile-button-wrapper">
-            <a th:href="@{/profile/edit}" class="btn-common btn-topPage">自己紹介を編集する</a>
-            </div>
+          </div>
+          <p
+            class="profile-description"
+            th:text="${user.profile != null ? user.profile : '自己紹介文が未登録です。'}"
+          ></p>
+          <div class="profile-button-wrapper">
+            <a th:href="@{/profile/edit}" class="btn-common btn-topPage"
+              >自己紹介を編集する</a
+            >
+          </div>
         </div>
-        </div>
-    
-        <!-- 学習チャート -->
-        <div class="learning-chart-section">
-            <h3 class="learning-chart-title">学習チャート</h3>
-            <a th:href="@{/learning/edit}" class="btn-secondary learning-chart-button">編集する</a>
+      </div>
 
-            <div class="chart-wrapper">
-                <canvas id="skillChart" width="1081" height="532.5"></canvas>
-            </div>    
+      <!-- 学習チャート -->
+      <div class="learning-chart-section">
+        <h3 class="learning-chart-title">学習チャート</h3>
+        <a
+          th:href="@{/learning/edit}"
+          class="btn-secondary learning-chart-button"
+          >編集する</a
+        >
+
+        <div class="chart-wrapper">
+          <canvas id="skillChart" width="1081" height="532.5"></canvas>
         </div>
-        
-        
+      </div>
     </main>
-    
-    
-    
+
     <div th:replace="~{fragments/footer :: footer}"></div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script th:inline="javascript">
-    /*<![CDATA[*/
-    document.addEventListener('DOMContentLoaded', function () {
-        if (typeof Chart === 'undefined') {
-            return;
-        }
-        
-        const ctx = document.getElementById('skillChart');
-        if (!ctx) {
-            return;
-        }
-        
-        function convertToRelativeMonths(months) {
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            const currentMonth = now.getMonth() + 1;
-            
-            const twoMonthsAgo = new Date(currentYear, currentMonth - 3, 1);
-            const lastMonth = new Date(currentYear, currentMonth - 2, 1);
-            const thisMonth = new Date(currentYear, currentMonth - 1, 1);
-            
-            return ['先々月', '先月', '今月'];
-        }
-        
-        let chartLabels, chartDatasets;
-        
-        try {
-            const originalLabels = [[${months}]];
-            chartLabels = convertToRelativeMonths(originalLabels);
-            
-            const categoryToValues = [[${categoryToValues}]];
-            
-            if (!categoryToValues || Object.keys(categoryToValues).length === 0) {
-                chartLabels = ['先々月', '先月', '今月'];
-                chartDatasets = [{
-                    label: ' ',
-                    data: [0, 0, 0],
-                    backgroundColor: '#cccccc'
-                }];
-            } else {
-                chartDatasets = [];
-                const categoryOrder = ['バックエンド', 'フロントエンド', 'インフラ'];
-                
-                for (const category of categoryOrder) {
-                    if (categoryToValues[category]) {
-                        let backgroundColor;
-                        switch (category) {
-                            case 'バックエンド': backgroundColor = '#F4A7B9'; break;
-                            case 'フロントエンド': backgroundColor = '#F6C58E'; break;
-                            case 'インフラ': backgroundColor = '#FCE79C'; break;
-                            default: backgroundColor = '#ccc'; break;
-                        }
-                        
-                        const values = categoryToValues[category];
-                        const reversedValues = [...values].reverse();
-                        
-                        chartDatasets.push({
-                            label: category,
-                            data: reversedValues,
-                            backgroundColor: backgroundColor
-                        });
-                    }
-                }
-            }
-            
-        } catch (error) {
-            chartLabels = ['先々月', '先月', '今月'];
-            chartDatasets = [{
-                label: 'エラー時サンプル',
-                data: [0, 0, 0],
-                backgroundColor: '#ff0000'
-            }];
-        }
-        
-        try {
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: chartLabels,
-                    datasets: chartDatasets
-                },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    family: 'Roboto',
-                                    size: 14,
-                                    weight: 400
-                                },
-                                color: '#000000'
-                            },
-                            stacked: false
-                        },
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: false
-                            },
-                            ticks: {
-                                stepSize: 10,
-                                font: {
-                                    family: 'Roboto',
-                                    size: 14,
-                                    weight: 400
-                                },
-                                color: '#000000'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    family: 'Roboto',
-                                    size: 14,
-                                    weight: 400
-                                },
-                                color: '#000000'
-                            }
-                        },
-                        tooltip: {
-                            enabled: true
-                        },
-                        title: {
-                            display: true,
-                            text: 'Chart.js Bar Chart',
-                            font: {
-                                family: 'Roboto',
-                                size: 14,
-                                weight: 700
-                            },
-                            color: '#666666',
-                            padding: {
-                                top: 10,
-                                bottom: 20
-                            }
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20
-                        }
-                    }
-                }
-            });
-        } catch (error) {
-            console.error('Chart initialization failed:', error);
-        }
-    });
-    /*]]>*/
+      /*<![CDATA[*/
+      document.addEventListener('DOMContentLoaded', function () {
+          if (typeof Chart === 'undefined') {
+              return;
+          }
+
+          const ctx = document.getElementById('skillChart');
+          if (!ctx) {
+              return;
+          }
+
+          function convertToRelativeMonths(months) {
+              const now = new Date();
+              const currentYear = now.getFullYear();
+              const currentMonth = now.getMonth() + 1;
+
+              const twoMonthsAgo = new Date(currentYear, currentMonth - 3, 1);
+              const lastMonth = new Date(currentYear, currentMonth - 2, 1);
+              const thisMonth = new Date(currentYear, currentMonth - 1, 1);
+
+              return ['先々月', '先月', '今月'];
+          }
+
+          let chartLabels, chartDatasets;
+
+          try {
+              const originalLabels = [[${months}]];
+              chartLabels = convertToRelativeMonths(originalLabels);
+
+              const categoryToValues = [[${categoryToValues}]];
+
+              if (!categoryToValues || Object.keys(categoryToValues).length === 0) {
+                  chartLabels = ['先々月', '先月', '今月'];
+                  chartDatasets = [{
+                      label: ' ',
+                      data: [0, 0, 0],
+                      backgroundColor: '#cccccc'
+                  }];
+              } else {
+                  chartDatasets = [];
+                  const categoryOrder = ['バックエンド', 'フロントエンド', 'インフラ'];
+
+                  for (const category of categoryOrder) {
+                      if (categoryToValues[category]) {
+                          let backgroundColor;
+                          switch (category) {
+                              case 'バックエンド': backgroundColor = '#F4A7B9'; break;
+                              case 'フロントエンド': backgroundColor = '#F6C58E'; break;
+                              case 'インフラ': backgroundColor = '#FCE79C'; break;
+                              default: backgroundColor = '#ccc'; break;
+                          }
+
+                          const values = categoryToValues[category];
+                          const reversedValues = [...values].reverse();
+
+                          chartDatasets.push({
+                              label: category,
+                              data: reversedValues,
+                              backgroundColor: backgroundColor
+                          });
+                      }
+                  }
+              }
+
+          } catch (error) {
+              chartLabels = ['先々月', '先月', '今月'];
+              chartDatasets = [{
+                  label: 'エラー時サンプル',
+                  data: [0, 0, 0],
+                  backgroundColor: '#ff0000'
+              }];
+          }
+
+          try {
+              new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: chartLabels,
+                      datasets: chartDatasets
+                  },
+                  options: {
+                      responsive: false,
+                      maintainAspectRatio: false,
+                      scales: {
+                          x: {
+                              title: {
+                                  display: false
+                              },
+                              ticks: {
+                                  font: {
+                                      family: 'Roboto',
+                                      size: 14,
+                                      weight: 400
+                                  },
+                                  color: '#000000'
+                              },
+                              stacked: false
+                          },
+                          y: {
+                              beginAtZero: true,
+                              title: {
+                                  display: false
+                              },
+                              ticks: {
+                                  stepSize: 10,
+                                  font: {
+                                      family: 'Roboto',
+                                      size: 14,
+                                      weight: 400
+                                  },
+                                  color: '#000000'
+                              }
+                          }
+                      },
+                      plugins: {
+                          legend: {
+                              position: 'top',
+                              labels: {
+                                  font: {
+                                      family: 'Roboto',
+                                      size: 14,
+                                      weight: 400
+                                  },
+                                  color: '#000000'
+                              }
+                          },
+                          tooltip: {
+                              enabled: true
+                          },
+                          title: {
+                              display: true,
+                              text: 'Chart.js Bar Chart',
+                              font: {
+                                  family: 'Roboto',
+                                  size: 14,
+                                  weight: 700
+                              },
+                              color: '#666666',
+                              padding: {
+                                  top: 10,
+                                  bottom: 20
+                              }
+                          }
+                      },
+                      layout: {
+                          padding: {
+                              top: 20,
+                              bottom: 20,
+                              left: 20,
+                              right: 20
+                          }
+                      }
+                  }
+              });
+          } catch (error) {
+              console.error('Chart initialization failed:', error);
+          }
+      });
+      /*]]>*/
     </script>
-</body>
+  </body>
 </html>
