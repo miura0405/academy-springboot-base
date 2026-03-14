@@ -37,7 +37,7 @@ public class SecurityConfig {
         AuthenticationProvider authenticationProvider) throws Exception {
     http
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/uploads/**", "/images/**", "/css/**", "/js/**", "/login", "/error").permitAll()
+            .requestMatchers("/uploads/**", "/images/**", "/css/**", "/js/**", "/login", "/register", "/error").permitAll()
             .anyRequest().authenticated()
         )
         .authenticationProvider(authenticationProvider)

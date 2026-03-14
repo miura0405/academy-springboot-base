@@ -21,6 +21,8 @@ nbproject/private/
 .apt_generated
 
 .env
+.env.local
+.env.prod
 
 uploads/
 
