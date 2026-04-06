@@ -28,14 +28,14 @@
         <div class="avatar-block">
           <div class="avatar-image-wrapper">
             <img
-              th:if="${user.avatar != null}"
-              th:src="@{/uploads/avatars/{img}(img=${user.avatar})}"
+              th:if="${avatarUrl != null}"
+              th:src="${avatarUrl}"
               alt="アバター画像"
               class="rounded-circle"
             />
 
             <img
-              th:unless="${user.avatar != null}"
+              th:unless="${avatarUrl != null}"
               th:src="@{/images/default-avatar.png}"
               alt="デフォルト画像"
               class="rounded-circle"

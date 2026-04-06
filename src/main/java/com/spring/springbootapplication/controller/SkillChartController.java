@@ -4,8 +4,8 @@ import com.spring.springbootapplication.dto.ChartDataDto;
 import com.spring.springbootapplication.repository.LearningDataRepository;
 import com.spring.springbootapplication.entity.User;
 import com.spring.springbootapplication.service.UserService;
+import com.spring.springbootapplication.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +20,14 @@ public class SkillChartController {
 
     private final LearningDataRepository learningDataRepository;
     private final UserService userService;
+    private final StorageService storageService;
 
     @Autowired
-    public SkillChartController(LearningDataRepository learningDataRepository, UserService userService) {
+    public SkillChartController(LearningDataRepository learningDataRepository, UserService userService,
+            StorageService storageService) {
         this.learningDataRepository = learningDataRepository;
         this.userService = userService;
+        this.storageService = storageService;
     }
 
     @GetMapping("/top")
@@ -71,6 +74,7 @@ public class SkillChartController {
         model.addAttribute("months", months);
         model.addAttribute("categoryToValues", categoryToValues);
         model.addAttribute("user", user);
+        model.addAttribute("avatarUrl", resolveAvatarUrl(user.getAvatar()));
 
         return "topPage";
     }
@@ -80,5 +84,15 @@ public class SkillChartController {
         return dates.stream()
                 .map(date -> date.format(formatter))
                 .toList();
+    }
+
+    private String resolveAvatarUrl(String avatar) {
+        if (avatar == null || avatar.isBlank()) {
+            return null;
+        }
+        if (avatar.startsWith("avatars/")) {
+            return storageService.getFileUrl(avatar);
+        }
+        return "/uploads/avatars/" + avatar;
     }
 }
