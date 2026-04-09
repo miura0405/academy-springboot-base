@@ -44,7 +44,7 @@ public class ProfileEditController {
 
         model.addAttribute("editProfileForm", form);
         model.addAttribute("user", user);
-        model.addAttribute("avatarUrl", resolveAvatarUrl(user.getAvatar()));
+        model.addAttribute("avatarUrl", storageService.resolveAvatarUrl(user.getAvatar()));
         return "profileEdit";
     }
 
@@ -79,7 +79,7 @@ public class ProfileEditController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            model.addAttribute("avatarUrl", resolveAvatarUrl(user.getAvatar()));
+            model.addAttribute("avatarUrl", storageService.resolveAvatarUrl(user.getAvatar()));
             return "profileEdit";
         }
 
@@ -94,17 +94,5 @@ public class ProfileEditController {
         session.setAttribute("loggedInUser", user);
 
         return "redirect:/top";
-    }
-
-    private String resolveAvatarUrl(String avatar) {
-        if (avatar == null || avatar.isBlank()) {
-            return null;
-        }
-        if (avatar.startsWith("avatars/")) {
-            // S3 移行後データはキーから公開URLを組み立てる
-            return storageService.getFileUrl(avatar);
-        }
-        // 既存データはローカル保存ファイル名として扱い、段階移行に対応する
-        return "/uploads/avatars/" + avatar;
     }
 }

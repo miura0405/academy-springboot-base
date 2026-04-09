@@ -74,7 +74,7 @@ public class SkillChartController {
         model.addAttribute("months", months);
         model.addAttribute("categoryToValues", categoryToValues);
         model.addAttribute("user", user);
-        model.addAttribute("avatarUrl", resolveAvatarUrl(user.getAvatar()));
+        model.addAttribute("avatarUrl", storageService.resolveAvatarUrl(user.getAvatar()));
 
         return "topPage";
     }
@@ -84,15 +84,5 @@ public class SkillChartController {
         return dates.stream()
                 .map(date -> date.format(formatter))
                 .toList();
-    }
-
-    private String resolveAvatarUrl(String avatar) {
-        if (avatar == null || avatar.isBlank()) {
-            return null;
-        }
-        if (avatar.startsWith("avatars/")) {
-            return storageService.getFileUrl(avatar);
-        }
-        return "/uploads/avatars/" + avatar;
     }
 }
