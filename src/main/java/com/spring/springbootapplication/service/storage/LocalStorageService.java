@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -44,9 +45,10 @@ public class LocalStorageService implements StorageService {
     }
 
     private String extractExtension(String fileName) {
-        if (fileName == null || !fileName.contains(".")) {
+        String baseName = StringUtils.getFilename(fileName);
+        if (baseName == null || !baseName.contains(".")) {
             return "";
         }
-        return fileName.substring(fileName.lastIndexOf("."));
+        return baseName.substring(baseName.lastIndexOf("."));
     }
 }

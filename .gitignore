@@ -1,11 +1,13 @@
 .gradle/
+.gradle-home/
 build/
 out/
 bin/
-nbbuild/
 dist/
+nbbuild/
 .nb-gradle/
 nbproject/private/
+
 .classpath
 .project
 .settings/
@@ -21,20 +23,10 @@ nbproject/private/
 .apt_generated
 
 .env
-.env.local
-.env.prod
-
+.env.*
 uploads/
 
-!gradle/wrapper/gradle-wrapper.jar
-
-!**/src/main/**/build/
-!**/src/test/**/build/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-.gradle-home/
 .DS_Store
 *.log
+
+!gradle/wrapper/gradle-wrapper.jar
