@@ -4,6 +4,9 @@
 *.ear
 /out
 .gradle
+.gradle-home
+/build
+/bin
 
 # Logs
 *.log
@@ -30,4 +33,7 @@ Thumbs.db
 
 # Other
 target
-
+uploads
+.env
+.env.*
+docker-compose*.yaml

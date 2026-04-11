@@ -42,11 +42,4 @@ public class LocalStorageService implements StorageService {
         }
         return "/uploads/" + key;
     }
-
-    private String extractExtension(String fileName) {
-        if (fileName == null || !fileName.contains(".")) {
-            return "";
-        }
-        return fileName.substring(fileName.lastIndexOf("."));
-    }
 }
