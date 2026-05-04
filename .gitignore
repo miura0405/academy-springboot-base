@@ -30,3 +30,11 @@ uploads/
 *.log
 
 !gradle/wrapper/gradle-wrapper.jar
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
