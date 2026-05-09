@@ -74,19 +74,27 @@ variable "availability_zone_1c" {
   default     = "ap-northeast-1c"
 }
 
-
+# アプリケーションが利用する DB 名（初期データベース名）。
+# `aws_db_instance.main` の `db_name` に渡され、RDS 作成時にこの名前の DB が作られる。
+# 後から変更すると差分が出やすいため、環境ごとに変える場合は tfvars 側で上書きするのが安全。
 variable "db_name" {
   description = "Database name for the application"
   type        = string
   default     = "academy_tf_db"
 }
 
+# RDS のマスターユーザー名。
+# アプリケーションの接続ユーザーとしても使い回す場合は権限設計に注意し、
+# 本番ではアプリ用の権限を絞ったユーザーを別途作る運用も検討する。
 variable "db_username" {
   description = "Master username for the RDS database"
   type        = string
   default     = "academy_admin"
 }
 
+# RDS のマスターパスワード。
+# Terraform state に値が残る点に注意（`sensitive = true` は表示抑制であり、state から消えるわけではない）。
+# 実運用では Secrets Manager / SSM Parameter Store 参照に寄せるのが望ましい。
 variable "db_password" {
   description = "Master password for the RDS database"
   type        = string
