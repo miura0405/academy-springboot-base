@@ -73,3 +73,22 @@ variable "availability_zone_1c" {
   type        = string
   default     = "ap-northeast-1c"
 }
+
+
+variable "db_name" {
+  description = "Database name for the application"
+  type        = string
+  default     = "academy_tf_db"
+}
+
+variable "db_username" {
+  description = "Master username for the RDS database"
+  type        = string
+  default     = "academy_admin"
+}
+
+variable "db_password" {
+  description = "Master password for the RDS database"
+  type        = string
+  sensitive   = true
+}
