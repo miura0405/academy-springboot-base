@@ -35,3 +35,17 @@ output "ecr_repository_url" {
   description = "URL of the ECR repository for the application"
   value       = aws_ecr_repository.app.repository_url
 }
+
+# 作成した ECS クラスターの名前。
+# `aws ecs` CLI、GitHub Actions、デプロイスクリプトで `--cluster` に渡すときに使える。
+output "ecs_cluster_name" {
+  description = "Name of the created ECS cluster"
+  value       = aws_ecs_cluster.main.name
+}
+
+# ECS クラスターの ARN。
+# IAM ポリシーの Condition、サービスリンクロール関連、イベント連携などで ARN を要求される場合に参照する。
+output "ecs_cluster_arn" {
+  description = "ARN of the created ECS cluster"
+  value       = aws_ecs_cluster.main.arn
+} 
