@@ -28,3 +28,10 @@ output "public_route_table_id" {
   description = "ID of the created public route table"
   value       = aws_route_table.public.id
 }
+
+# アプリケーション用 ECR リポジトリのレジストリ URL。
+# `docker push` の接続先や、ECS タスク定義の `image` に指定する URI のベースとして使える。
+output "ecr_repository_url" {
+  description = "URL of the ECR repository for the application"
+  value       = aws_ecr_repository.app.repository_url
+}

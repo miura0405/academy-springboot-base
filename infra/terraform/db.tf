@@ -46,7 +46,7 @@ resource "aws_db_instance" "main" {
 
   # どの Subnet Group 配下に DB を配置するか。
   # Private Subnet のみを含んだ Subnet Group を指定することで、RDS をインターネット非公開に保つ。
-  db_subnet_group_name   = aws_db_subnet_group.main.name
+  db_subnet_group_name = aws_db_subnet_group.main.name
 
   # 適用する Security Group 一覧。
   # rds 用 SG を指定し、ECS タスクからの PostgreSQL アクセスだけを受けられるようにしている。

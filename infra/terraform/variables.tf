@@ -12,6 +12,7 @@ variable "aws_region" {
 
 # リソース名の接頭辞などに使うプロジェクト識別子。
 # Name タグや Security Group 名に含めることで、AWS コンソール上で関連リソースを探しやすくする。
+# `aws_ecr_repository.app` のリポジトリ名 `${var.project_name}/app` の接頭辞としても使う。
 variable "project_name" {
   description = "Project name used for resource naming"
   type        = string
