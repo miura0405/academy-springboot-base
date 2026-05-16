@@ -101,3 +101,12 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+# 自分の IP アドレスの CIDR。
+# ECS サービスへのアクセスを制限するために使う。
+# terraform.tfvars で上書きすることで、ローカル環境でもアクセス可能になる。
+# 本番環境では、ALB の Security Group 参照に絞るとより安全。
+variable "my_ip_cidr" {
+  description = "My IP address CIDR for accessing ECS service"
+  type        = string
+}

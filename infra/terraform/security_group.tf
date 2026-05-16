@@ -33,9 +33,10 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_http_8080" {
   from_port   = 8080
   to_port     = 8080
 
-  # 任意の IPv4 アドレスからのアクセスを許可する。
-  # 本番で ALB 経由にする場合は、ALB の Security Group 参照に絞るとより安全。
-  cidr_ipv4   = "0.0.0.0/0"
+  # 自分の IPv4 アドレスからのアクセスだけを許可する。
+  # ALBなしでECSタスクへ直接アクセスする学習用構成のため、
+  # 0.0.0.0/0 ではなく検証元IPに絞る。
+  cidr_ipv4   = var.my_ip_cidr
   description = "Allow HTTP access to ECS tasks on port 8080"
 }
 
