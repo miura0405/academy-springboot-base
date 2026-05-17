@@ -56,7 +56,7 @@ resource "aws_ecs_task_definition" "app" {
         },
         {
           name  = "SPRING_DATASOURCE_PASSWORD"
-          value = var.db_password
+          value = var.db_password_parameter_arn
         }
       ]
 

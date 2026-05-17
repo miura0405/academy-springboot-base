@@ -102,6 +102,11 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "db_password_parameter_arn" {
+  description = "ARN of the SSM Parameter Store SecureString for DB password"
+  type        = string
+}
+
 # 自分の IP アドレスの CIDR。
 # ECS サービスへのアクセスを制限するために使う。
 # terraform.tfvars で上書きすることで、ローカル環境でもアクセス可能になる。
