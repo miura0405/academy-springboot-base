@@ -90,18 +90,3 @@ resource "aws_vpc_security_group_ingress_rule" "rds_postgresql_from_ecs" {
   description                  = "Allow PostgreSQL access from ECS tasks"
 }
 
-# RDS から外向き通信を許可。
-# AWS のマネージド DB として通常は広い egress 許可で問題になりにくいが、
-# 厳密に制御したい場合は必要な宛先・ポートに絞る余地がある。
-resource "aws_vpc_security_group_egress_rule" "rds_all_outbound" {
-  # ルールを追加する RDS 用 Security Group。
-  security_group_id = aws_security_group.rds.id
-
-  # -1 は全プロトコルを意味する。
-  ip_protocol = "-1"
-
-  # 任意の IPv4 宛先への通信を許可する。
-  cidr_ipv4 = "0.0.0.0/0"
-
-  description = "Allow all outbound traffic from RDS"
-}
