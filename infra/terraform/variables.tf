@@ -114,4 +114,11 @@ variable "db_password_parameter_arn" {
 variable "my_ip_cidr" {
   description = "My IP address CIDR for accessing ECS service"
   type        = string
+
+  # cidrnetmask が計算できる形式かどうかで CIDR の妥当性を検証する。
+  # 例: "203.0.113.10/32" は OK、"203.0.113.10" や空文字は apply 前に弾く。
+  validation {
+    condition     = can(cidrnetmask(var.my_ip_cidr))
+    error_message = "The my_ip_cidr value must be a valid CIDR block."
+  }
 }
