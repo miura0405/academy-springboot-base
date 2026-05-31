@@ -103,6 +103,7 @@ ECS Fargateへの移行では、EC2上で直接コンテナを運用する構成
 * Subnet
 * Route Table
 * Security Group
+* IAM ロール / ポリシー
 * Amazon RDS for PostgreSQL
 * Amazon ECR
 * Amazon ECS Cluster
